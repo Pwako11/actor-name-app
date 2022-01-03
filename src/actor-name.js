@@ -1,7 +1,14 @@
-var cleanActorList;
+var cleanActorList = [];
+var onlyNames = [];
+var pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" )
 
 let element = document.createElement('div')
 document.body.appendChild(element)
+
+let myArray = ["dogs", "have", "the", "best", "life"]
+
+console.log("What type of data is myArray", typeof myArray)
+console.log("What type of data is myArray", myArray)
 
 // const reader = new FileReader()
 
@@ -55,15 +62,22 @@ function previewFile() {
     
     let arrayofNames = Object.values(actorName)
 
-    for( const name in arrayofNames) {
-        console.log(`${name}: ${arrayofNames}`)
+    for( let i = 0; i < arrayofNames.length; i++) {
+
+      if(arrayofNames[i][0] !== " "){
+        onlyNames.push(arrayofNames[i])
+        let sn = arrayofNames[i].split('--')[0]
+        cleanActorList.push(sn.trim())
+      }
+      
     }
-
-    console.log( "what kind of data is ArrayofName", arrayofNames);
-
-    console.log( "what kind of data is ArrayofName", typeof arrayofNames);
-    // cleanActorList = actorName.trim() 
-
-    // console.log("CleanList --->>>", cleanActorList)
+    
+    uniqueFullName(cleanActorList)
+    
   }
   
+  function uniqueFullName(cleanActorList) {
+    for(let i = 0; i < cleanActorList.length; i++){
+      console.log(cleanActorList[i])
+    }
+  }
