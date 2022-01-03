@@ -5,10 +5,15 @@ var pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" )
 let element = document.createElement('div')
 document.body.appendChild(element)
 
-let myArray = ["dogs", "have", "the", "best", "life"]
+const uniqueCountFullName = document.querySelector('.uniqueCountFullName');
+const uniqueCountLastName = document.querySelector('.uniqueCountLastName');
+const uniqueCountFirstName = document.querySelector('.uniqueCountFirstName');
+const topTenLastName = document.querySelector('.topTenLastName');
+const topTenFirstName = document.querySelector('.topTenFirstName');
+const topSpecialUniqueName = document.querySelector('.topSpecialUniqueName'); 
+const topModifiedName = document.querySelector('.topModifiedName')
 
-console.log("What type of data is myArray", typeof myArray)
-console.log("What type of data is myArray", myArray)
+
 
 // const reader = new FileReader()
 
@@ -23,42 +28,29 @@ console.log("What type of data is myArray", myArray)
 
 
 function previewFile() {
-
-     
-    const content = document.querySelector('.content');
-    const [file] = document.querySelector('input[type=file]').files;
+ 
+  const content = document.querySelector('.content');
+  const [file] = document.querySelector('input[type=file]').files;
     
-    const reader = new FileReader();
-    var downloaded;
-   
+  const reader = new FileReader();
+  var downloaded;
 
-    reader.addEventListener("load", () => {
-      // this will then display a text file
-        downloaded = reader.result;
-        content.innerText = downloaded;
-        editList(downloaded)
-    }, false);
+  reader.addEventListener("load", () => {
+    downloaded = reader.result;
+    content.innerText = downloaded;
+    editList(downloaded)
+  }, false);
   
-    if (file) {
-      reader.readAsText(file);
-    }
-
-    
+  if (file) {
+    reader.readAsText(file);
+  }
+  
   }
 
 
-  function editList(colomani){
+  function editList(rawData){
 
-    console.log("what kind of data is this", typeof colomani)
-    const uniqueCountFullName = document.querySelector('.uniqueCountFullName');
-    const uniqueCountLastName = document.querySelector('.uniqueCountLastName');
-    const uniqueCountFirstName = document.querySelector('.uniqueCountFirstName');
-    const topTenLastName = document.querySelector('.topTenLastName');
-    const topTenFirstName = document.querySelector('.topTenFirstName');
-    const topSpecialUniqueName = document.querySelector('.topSpecialUniqueName'); 
-    const topModifiedName = document.querySelector('.topModifiedName')
-
-    let actorName = colomani.split(/\n/ )
+    let actorName = rawData.split(/\n/ )
     
     let arrayofNames = Object.values(actorName)
 
@@ -71,13 +63,45 @@ function previewFile() {
       }
       
     }
+
+    uniqueFullNames(cleanActorList);
     
-    uniqueFullName(cleanActorList)
+    buildNameObject(cleanActorList);
     
   }
   
-  function uniqueFullName(cleanActorList) {
+  function uniqueFullNames(cleanActorList){
+    var counts = {};
+    for (let i = 0; i <cleanActorList.length; i++ ){
+      counts[cleanActorList[i]] = 1 + (counts[cleanActorList[i]] || 0);
+    };
+
+    let result = Object.keys(counts).length;
+
+    uniqueCountFullName.innerText = `The unique count of full names is: ${result}`   
+  
+  }
+
+
+
+  function buildNameObject(cleanActorList) {
+    let detailedList = []
+
     for(let i = 0; i < cleanActorList.length; i++){
-      console.log(cleanActorList[i])
+      let actorName = {}
+      let splitName= cleanActorList[i].split(',')
+      
+      actorName.lastName = splitName[0]
+      actorName.firstName = splitName[1]
+      detailedList.push(actorName)
     }
+    
+    UniqueLastName(detailedList)
+
+
+  }
+
+
+  function UniqueLastName(detailedList){
+
   }
