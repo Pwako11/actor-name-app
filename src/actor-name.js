@@ -13,8 +13,6 @@ const topTenFirstName = document.querySelector('.topTenFirstName');
 const topSpecialUniqueName = document.querySelector('.topSpecialUniqueName'); 
 const topModifiedName = document.querySelector('.topModifiedName')
 
-
-
 // const reader = new FileReader()
 
 // reader.readAsText(YeswareCodeTestData.txt)
@@ -97,11 +95,79 @@ function previewFile() {
     }
     
     UniqueLastName(detailedList)
-
+    UniqueFirstName(detailedList)
+    topTenLName(detailedList)
 
   }
 
 
   function UniqueLastName(detailedList){
+    var counts = new Set();
+
+    for (let i = 0; i < detailedList.length; i++){
+      if(detailedList[i].lastName !== ""){
+        counts.add(detailedList[i].lastName);
+      }
+    }
+
+    console.log(counts.size)
+    let result = counts.size;
+    uniqueCountLastName.innerText = `The unique count of last names is: ${result} `  
+
+  }
+
+  function UniqueFirstName(detailedList){
+    var counts = new Set();
+
+    for (let i = 0; i < detailedList.length; i++){
+      if(detailedList[i].firstName !== ""){
+        if(detailedList[i].firstName === undefined){
+          return uniqueCountFirstName.innerText = `The unique count of first names is: 0 ` 
+        } else{
+          counts.add(detailedList[i].fisrtName);
+        }
+        
+      }
+        
+    }
+    let result = counts.size;
+    uniqueCountFirstName.innerText = `The unique count of first names is: ${result} `  
+
+  }
+
+  function topTenLName(detailedList){
+    function compare(a, b) {
+      if(a.lastName < b.lastName){
+        return -1;
+      }
+      if(a.lastName > b.lastName){
+        return 1;
+      }
+      return 0;
+    }
+
+    detailedList.sort(compare)
+
+
+  let counts = {};
+
+  detailedList.forEach( (actor) =>{
+    counts[actor.lastName] = (counts[actor.lastName] || 0) +1;
+  })
+
+  let sortedList = [];
+
+  for( var actor in counts){
+    sortedList.push([actor, counts[actor]])
+  }
+
+  
+
+  console.log("Here is a list of Counts" , counts)
+
+  sortedList.sort(function (b, a){
+    return a[1] - b[1];
+  })
+  console.log("Here is a list of sortedList" , sortedList)
 
   }
