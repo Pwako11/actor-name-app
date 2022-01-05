@@ -3,7 +3,6 @@ document.body.appendChild(element)
 
 var cleanActorList = [];
 var onlyNames = [];
-var pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" );
 
 const uniqueCountFullName = document.querySelector('.uniqueCountFullName');
 const uniqueCountLastName = document.querySelector('.uniqueCountLastName');
@@ -15,7 +14,7 @@ const topModifiedName = document.querySelector('.topModifiedName')
 
 function previewFile() {
  
-  const content = document.querySelector('.content');
+  const content = document.querySelector('.content').style.visibility = "hidden";
   const [file] = document.querySelector('input[type=file]').files;  
   const reader = new FileReader();
   var downloaded;
@@ -49,7 +48,7 @@ function editList(rawData){
 
   uniqueFullNames(cleanActorList);
   buildNameObject(cleanActorList);
-  speciallyuniquenames(cleanActorList)
+  speciallyuniquenames(cleanActorList);
 
 }
   
@@ -63,7 +62,6 @@ function uniqueFullNames(cleanActorList){
 
   uniqueCountFullName.innerText = `The unique count of full names is: ${result}`   
 
-  // console.log("The unique count of full names is", result)
 }
 
 function buildNameObject(cleanActorList) {
@@ -241,12 +239,9 @@ function speciallyuniquenames(cleanActorList){
 
   speciallyModifiedNames(modifiedNames);
 
-  console.log(modifiedNames.length)
 }
 
 function speciallyModifiedNames(modifiedNames) {
-
-  console.log(modifiedNames.length)
 
   topModifiedName.innerText = `Here is a list of 25 modified names`
 
@@ -254,81 +249,33 @@ function speciallyModifiedNames(modifiedNames) {
   let firstNames = [];
   let lastNames = []; 
 
-   for ( let i = 0; i < modifiedNames.length; i++){
+  for ( let i = 0; i < modifiedNames.length; i++){
     firstNames.push(modifiedNames[i].split(", ")[1]);
     lastNames.push(modifiedNames[i].split(", ")[0]);
-   }
+  }
 
   var randomElemList = new Set();
 
-   for ( let i = 0; i < modifiedNames.length; i++){
+  for ( let i = 0; i < modifiedNames.length; i++){
+    
+    randomNumberGen()
+    function randomNumberGen(){
       let randomElement = Math.floor(Math.random() *25);
-      let randomSecElement = Math.floor(Math.random() *25);
-      let randomthirdElement = Math.floor(Math.random() *25);
-      let randomfourthElement = Math.floor(Math.random() *25);
-      let randomfifthElement = Math.floor(Math.random() *25);
-      let randomSixthElement = Math.floor(Math.random() *25);
-      let randomSeventhElement = Math.floor(Math.random() *25);
-      let randomEigthElement = Math.floor(Math.random() *25);
-      let randomNinethElement = Math.floor(Math.random() *25);
-      let randomTenthElement = Math.floor(Math.random() *25);
-      let randomEllevenElement = Math.floor(Math.random() *25);
-      let randomTwelveElement = Math.floor(Math.random() *25);
-      let randomThirteenElement = Math.floor(Math.random() *25);
-      let randomFourteenElement = Math.floor(Math.random() *25);
-      let randomFirteenElement = Math.floor(Math.random() *25);
+      assingRandomName(randomElement)
+    }
       
-
+    function assingRandomName(randomElement) {
       if ( !randomElemList.has(randomElement)){
         modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomElement]);
         randomElemList.add(randomElement);
+      }else{
+        randomNumberGen()
+      }
+    }
+        
+  } 
 
-      }else if(!randomElemList.has(randomSecElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomSecElement]);
-        randomElemList.add(randomSecElement);
-      }else if(!randomElemList.has(randomthirdElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomthirdElement]);
-        randomElemList.add(randomthirdElement);
-      }else if(!randomElemList.has(randomfourthElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomfourthElement]);
-        randomElemList.add(randomfourthElement);
-      }else if(!randomElemList.has(randomfifthElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomfifthElement]);
-        randomElemList.add(randomfifthElement);
-      }else if(!randomElemList.has(randomSixthElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomSixthElement]);
-        randomElemList.add(randomSixthElement);
-      }else if(!randomElemList.has(randomSeventhElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomSeventhElement]);
-        randomElemList.add(randomSeventhElement);
-      }else if(!randomElemList.has(randomEigthElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomEigthElement]);
-        randomElemList.add(randomEigthElement);
-      }else if(!randomElemList.has(randomNinethElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomNinethElement]);
-        randomElemList.add(randomNinethElement);
-      }else if(!randomElemList.has(randomTenthElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomTenthElement]);
-        randomElemList.add(randomTenthElement);
-      }else if(!randomElemList.has(randomEllevenElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomEllevenElement]);
-        randomElemList.add(randomEllevenElement);
-      }else if(!randomElemList.has(randomTwelveElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomTwelveElement]);
-        randomElemList.add(randomTwelveElement);
-      }else if(!randomElemList.has(randomThirteenElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomThirteenElement]);
-        randomElemList.add(randomThirteenElement);
-      }else if(!randomElemList.has(randomFourteenElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomFourteenElement]);
-        randomElemList.add(randomFourteenElement);
-      }else if(!randomElemList.has(randomFirteenElement)){
-        modifiedFullNames.push(lastNames[i] + ", " + firstNames[randomFirteenElement]);
-        randomElemList.add(randomFirteenElement);
-      }    
-   } 
-
-   for(let i = 0; i< modifiedFullNames.length; i++){
+  for(let i = 0; i< modifiedFullNames.length; i++){
         
     const ul = document.createElement('ul');
     const li = document.createElement('li');
@@ -337,5 +284,5 @@ function speciallyModifiedNames(modifiedNames) {
     ul.appendChild(li);
     topModifiedName.appendChild(ul);
 
-   }
+  }
 }
